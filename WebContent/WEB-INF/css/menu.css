@@ -1,0 +1,22 @@
+body {
+	padding: 10px;
+}
+
+.imageClass:hover{
+	cursor: pointer;
+}
+.dialog{
+	display:none;
+}
+.mindMapClass{
+	width: 300px;
+}
+.drawingsClass{
+	width: 300px;
+}
+.codeTypeClass{
+	width: 300px;
+}
+.topDropDownMenu{
+	height: 35px;
+}
