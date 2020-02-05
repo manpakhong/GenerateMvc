@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "hk.org.hkbh.cms.outpatient.web"})
+@ComponentScan(basePackages = { "hk.org.hkbh.cms.generatemvc.web"})
 public class WebMvcConfig implements WebMvcConfigurer {
 	   @Bean
 	   public InternalResourceViewResolver resolver() {

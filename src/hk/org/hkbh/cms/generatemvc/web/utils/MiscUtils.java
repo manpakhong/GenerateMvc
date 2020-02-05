@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.utils;
+package hk.org.hkbh.cms.generatemvc.web.utils;
 
 import java.sql.Timestamp;
 

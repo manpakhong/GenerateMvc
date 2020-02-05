@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.utils;
+package hk.org.hkbh.cms.generatemvc.web.utils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -11,7 +11,7 @@ import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hk.org.hkbh.cms.generatemvc.factories.UtilsFactory;
+import hk.org.hkbh.cms.generatemvc.web.factories.UtilsFactory;
 
 public class CalendarUtils {
 

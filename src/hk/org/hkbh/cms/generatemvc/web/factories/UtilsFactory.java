@@ -1,13 +1,13 @@
-package hk.org.hkbh.cms.generatemvc.factories;
+package hk.org.hkbh.cms.generatemvc.web.factories;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hk.org.hkbh.cms.generatemvc.utils.CalendarUtils;
-import hk.org.hkbh.cms.generatemvc.utils.CommonUtils;
-import hk.org.hkbh.cms.generatemvc.utils.DateUtils;
-import hk.org.hkbh.cms.generatemvc.utils.FileUtils;
-import hk.org.hkbh.cms.generatemvc.utils.MiscUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.CalendarUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.CommonUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.DateUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.FileUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.MiscUtils;
 
 public class UtilsFactory {
 	private final static Logger logger = LoggerFactory.getLogger(getClassName());

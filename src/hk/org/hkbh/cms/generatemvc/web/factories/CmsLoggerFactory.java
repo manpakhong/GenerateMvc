@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.factories;
+package hk.org.hkbh.cms.generatemvc.web.factories;
 
 import java.io.File;
 import java.io.FileInputStream;

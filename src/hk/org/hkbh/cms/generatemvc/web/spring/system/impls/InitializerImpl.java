@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import hk.org.hkbh.cms.generatemvc.factories.CmsLoggerFactory;
+import hk.org.hkbh.cms.generatemvc.web.factories.CmsLoggerFactory;
 import hk.org.hkbh.cms.generatemvc.web.spring.system.WebInitializer;
 
 @SuppressWarnings("serial")

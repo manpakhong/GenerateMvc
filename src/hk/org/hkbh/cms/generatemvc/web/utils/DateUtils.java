@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.utils;
+package hk.org.hkbh.cms.generatemvc.web.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.systems;
+package hk.org.hkbh.cms.generatemvc.web.systems;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

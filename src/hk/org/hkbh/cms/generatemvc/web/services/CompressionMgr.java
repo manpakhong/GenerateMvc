@@ -1,4 +1,4 @@
-package hk.org.hkbh.cms.generatemvc.services;
+package hk.org.hkbh.cms.generatemvc.web.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import com.rabbitforever.generateJavaMVC.models.dtos.CompressFileDto;
 
-import hk.org.hkbh.cms.generatemvc.factories.UtilsFactory;
-import hk.org.hkbh.cms.generatemvc.utils.CommonUtils;
+import hk.org.hkbh.cms.generatemvc.web.factories.UtilsFactory;
+import hk.org.hkbh.cms.generatemvc.web.utils.CommonUtils;
 
 public class CompressionMgr {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

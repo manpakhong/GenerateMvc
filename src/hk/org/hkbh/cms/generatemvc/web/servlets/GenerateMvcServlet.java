@@ -1,20 +1,17 @@
-package hk.org.hkbh.cms.generatemvc.webservices;
+package hk.org.hkbh.cms.generatemvc.web.servlets;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.StreamingOutput;
 
 import org.slf4j.Logger;
@@ -24,71 +21,57 @@ import com.rabbitforever.generateJavaMVC.factories.PropertiesFactory;
 import com.rabbitforever.generateJavaMVC.models.dtos.CompressFileDto;
 import com.rabbitforever.generateJavaMVC.services.DaoGenerateMgr;
 import com.rabbitforever.generateJavaMVC.services.EoGenerateMgr;
-import com.rabbitforever.generateJavaMVC.services.FileArchieveMgr;
 import com.rabbitforever.generateJavaMVC.services.OrmDaoGenerateMgr;
 import com.rabbitforever.generateJavaMVC.services.ServiceGenerateMgr;
 import com.rabbitforever.generateJavaMVC.services.SoGenerateMgr;
 
-import hk.org.hkbh.cms.generatemvc.factories.UtilsFactory;
-import hk.org.hkbh.cms.generatemvc.services.CompressionMgr;
-import hk.org.hkbh.cms.generatemvc.utils.CommonUtils;
-import hk.org.hkbh.cms.generatemvc.utils.DateUtils;
-import hk.org.hkbh.cms.generatemvc.utils.FileUtils;
-//http://localhost:8080/MfmsReport/generatePatrolReportWs/test
-//http://localhost:8080/MfmsReport/generatePatrolReportWs/requestPatrolRoutineJson
-@Path("/generateMvcWs")
-public class GenerateMvcWs {
+import hk.org.hkbh.cms.generatemvc.web.factories.UtilsFactory;
+import hk.org.hkbh.cms.generatemvc.web.services.CompressionMgr;
+import hk.org.hkbh.cms.generatemvc.web.utils.CommonUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.DateUtils;
+import hk.org.hkbh.cms.generatemvc.web.utils.FileUtils;
+
+@SuppressWarnings("serial")
+public class GenerateMvcServlet extends HttpServlet {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private PropertiesFactory propertiesFactory;
-
+	private final String ZIP_EXT = ".zip";
 	private UtilsFactory utilsFactory;
 	private CommonUtils commonUtils;
 	private FileUtils fileUtils;
 	private DateUtils dateUtils;
 	private final String EXCEL_EXT = ".xlsx";
-	private final String ZIP_EXT = ".zip";
-	
-	public GenerateMvcWs() {
+	private String getClassName(){
+		return this.getClass().getName();
+	}
+
+	public void init() throws ServletException {
 		try {
 			propertiesFactory = PropertiesFactory.getInstanceOfPropertiesFactory();
-
 			utilsFactory = UtilsFactory.getInstance();
 			commonUtils = utilsFactory.getInstanceOfCommonUtils();
 			fileUtils = utilsFactory.getInstanceOfFileUtils();
 			dateUtils = utilsFactory.getInstanceOfDateUtils();
 		} catch (Exception e) {
-			logger.error(getClassName() + ".GeneratePatrolReportWs() - Exception: ", e);
+			logger.error(getClassName() + ".ServletException() - Exception: ", e);
 		}
-	}
-	private String getClassName(){
-		return this.getClass().getName();
-	}
+	}	
 
-	@GET
-	@Path("/generateMvc")
-//    @Produces("application/vnd.ms-excel")
-    @Produces(MediaType.TEXT_PLAIN)
-//	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public Response requestPatrolRoutineExcel(
-			@QueryParam("tableName") String tableName
-			){
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ServletOutputStream os = null;
+		ByteArrayOutputStream baos = null;
 		String rootDir = null;
 		String fileName = null;
 		String fileNamePrefix = null;
 		String fileNameSuffix = null;
-		Response response = null;
-		StreamingOutput  stream = null;
-		try{
+		try {
+			String tableName = request.getParameter("tableName");
+
+
+
 			
-			Integer siteKey = null;
-			Date resultStartDate = null;
-			Date resultEndDate = null;
-			List<String> routeKeyList = null;
-			List<String> routeLocationKeyList = null;
 			
 
-			FileArchieveMgr fileArchieveMgr = new FileArchieveMgr();
-			fileArchieveMgr.maintainFileArchieve();
 			
 			List<CompressFileDto> compressFileDtoList = new ArrayList<CompressFileDto>();
 			CompressFileDto compressFileDto1 = new CompressFileDto();
@@ -131,16 +114,7 @@ public class GenerateMvcWs {
 
 			final ByteArrayOutputStream byteArrayOutputStream = mgr.compressByteArrayOutputStreamList(compressFileDtoList);
 			
-			
 
-	        stream = new StreamingOutput() {
-	            @Override
-	            public void write(OutputStream os) throws IOException, WebApplicationException {
-	                os.write(byteArrayOutputStream.toByteArray());
-	                os.flush();
-	            }
-	        };
-			
 	        
 
 			utilsFactory = UtilsFactory.getInstance();
@@ -151,42 +125,45 @@ public class GenerateMvcWs {
 
 			fileName = fileNamePrefix + "_" + fileNameSuffix +  commonUtils.genTimestampString() + ZIP_EXT;
 
-	        
-	
-			ResponseBuilder builder = 
-					Response.ok(stream, MediaType.APPLICATION_OCTET_STREAM)
-				    .header("content-disposition",
-				      "attachment; filename = \"" + fileName + "\"");
+			
+			
+			
+			response.setContentType("application/zip");
 
-			response = builder.build();
 
-		}catch (Exception e){
-			logger.error(getClassName() + ".requestPatrolRoutineExcel() - tableName=" + tableName , e);
+
+//			baos = new ByteArrayOutputStream();
+			//TODO uncomment the function after finished
+//			mgr.generateExcel(voList, baos);
+
+			byte[] byteArray = byteArrayOutputStream.toByteArray();
+			response.setContentLength(byteArray.length);
+			os = response.getOutputStream();
+
+			byteArrayOutputStream.writeTo(os);
+
+
+//			fileName = fileNamePrefix + "_" + fileNameSuffix +  commonUtils.genTimestampString() + EXCEL_EXT;
+
+			response.setHeader("Content-Disposition", "inline; filename=\""+ fileName + "\"");
+
+			
+		} catch (Exception e) {
+			logger.error(getClassName() + ".doGet() - Exception: ", e);
+		} finally {
+			if (baos != null) {
+				baos.close();		
+				baos = null;
+			}
+			if (os != null) {
+				os.flush();
+				os.close();
+				os = null;
+			}
 		}
-		return response;
 	}
-	
-//	 @GET
-//	 @Path("/download")
-//	 public Response downloadPdfFile() {
-//	  StreamingOutput fileStream = new StreamingOutput() {
-//	   @Override
-//	   public void write(java.io.OutputStream output) throws IOException,
-//	     WebApplicationException {
-//	    try {
-//	     java.nio.file.Path path = Paths.get("/Report/patrol_excel20180802142602.xlsx");
-//	     byte[] data = Files.readAllBytes(path);
-//	     output.write(data);
-//	     output.flush();
-//	    } catch (Exception e) {
-//	     throw new WebApplicationException("File Not Found !!");
-//	    }
-//	   }
-//	  };
-//	  return Response
-//	    .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
-//	    .header("content-disposition",
-//	      "attachment; filename = patrol.xlsx").build();
-//	 }
-	
+
+	public void destroy() {
+		// do nothing.
+	}
 }
