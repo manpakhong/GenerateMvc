@@ -3,12 +3,41 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>hk.org.hkbh.cms.GenerateMvc</groupId>
-	<artifactId>GenerateMvc</artifactId>
+	<artifactId>GenerateMvcWeb</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<finalName>GenerateMvcWeb</finalName>
+		<!-- without properties files compiled in jar -->
+<!-- 		<resources>
+			<resource>
+				<directory>log4j-properties-charges</directory>
+				<excludes>
+					<exclude>**/*.properties</exclude>
+				</excludes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>properties</directory>
+				<excludes>
+					<exclude>**/*.*</exclude>
+				</excludes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>	 -->
+
 		<plugins>
+	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
@@ -22,8 +51,32 @@
 				<version>3.2.1</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
+			          <archive>
+			            <manifest>
+			              <addClasspath>true</addClasspath>
+			            </manifest>
+			          </archive>
 				</configuration>
 			</plugin>
+ 			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-antrun-plugin</artifactId>
+			    <version>1.8</version>
+			    <executions>
+			        <execution>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>run</goal>
+			            </goals>
+			            <configuration>
+			                <tasks>
+			                    <echo>Using env.test.properties</echo>
+			                    <copy file="C:/Users/davephman/git/rabbitCodeGenerator/generateJavaMVC/target/generateJavaMVC-jar-with-dependencies.jar" tofile="${basedir}/WebContent/WEB-INF/lib/generateJavaMVC-jar-with-dependencies.jar"/>
+			                    </tasks>
+			                </configuration>
+			            </execution>
+			        </executions>
+			    </plugin>	
 		</plugins>
 	</build>
 	<repositories>

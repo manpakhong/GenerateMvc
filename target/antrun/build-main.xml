@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo>Using env.test.properties</echo>
+  <copy file="C:/Users/davephman/git/rabbitCodeGenerator/generateJavaMVC/target/generateJavaMVC-jar-with-dependencies.jar" tofile="C:\workspace\GenerateMvc/WebContent/WEB-INF/lib/generateJavaMVC-jar-with-dependencies.jar"/>
+</target>
+</project>
