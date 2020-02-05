@@ -39,6 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	        // Register resource handler for images
 	        registry.addResourceHandler("/javascript/**").addResourceLocations("/javascript/")
 	              .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+	        registry.addResourceHandler("/image/**").addResourceLocations("/image/")
+            .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
 	    }	 
 	   @Bean
 	   public MessageSource messageSource() {

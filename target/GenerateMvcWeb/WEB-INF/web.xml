@@ -12,7 +12,7 @@
   
   	<servlet>
 		<servlet-name>GenerateMvcServlet</servlet-name>
-		<servlet-class>hk.org.hkbh.cms.generatemvc.servlets.GenerateMvcServlet</servlet-class>
+		<servlet-class>hk.org.hkbh.cms.generatemvc.web.servlets.GenerateMvcServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
